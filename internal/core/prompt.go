@@ -4,6 +4,7 @@ import "github.com/AlecAivazis/survey/v2"
 
 type SurveyPrompt struct{}
 
+// Prompt Abstracted the third-party library to enable mocking and testing of interactions with our code
 type Prompt interface {
 	AskOne(p survey.Prompt, response interface{}, opts ...survey.AskOpt) error
 }
