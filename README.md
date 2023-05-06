@@ -5,6 +5,39 @@
 
 Wizard-Client is a CLI app that allows users to create magical elixirs based on the ingredients they have at their disposal. Simply input a list of ingredients, and the app will return the elixirs you can make with those ingredients.
 
+## Overview
+
+### Project structure
+```
+.
+|-- Makefile
+|-- README.md
+|-- cmd
+|   `-- root.go
+|-- demo.gif
+|-- go.mod
+|-- go.sum
+|-- internal
+|   |-- core
+|   |   |-- elixircreator.go
+|   |   |-- elixircreator_test.go
+|   |   |-- prompt.go
+|   |   -- prompt_mock.go
+|   -- wizardclient
+|       |-- client.go
+|       |-- client_mock.go
+|       -- client_test.go
+ -- main.go
+```
+
+- The main functionality lies in the core package. `elixircreator.go` is responsible for coordinating user interactions  and the creation of elixirs using the provided ingredients. `prompt.go` is an abstraction over the prompt survey library
+- The wizardclient package holds the HTTP client for fetching ingredient and elixir data
+- Both packages make use of interfaces to make the code is more flexible, allowing for easier testing and the ability to swap out implementations when needed.
+- The design pattern used in the provided code is the Dependency Injection pattern. Specific dependencies are injected into structs that need them rather than being hard-coded.
+
+Assumptions made:
+- The external API used to fetch ingredients and elixirs is reliable and available.
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -23,6 +56,10 @@ git clone https://github.com/raymondgitonga/wizard-client.git
 Next, navigate to the project directory:
 `cd wizard-client`
 
+### Technologies Used
+1. Go as the programming language
+2. [Cobra](https://github.com/spf13/cobra) library to bootstrap the CLI
+3. [Go-Survey](https://github.com/AlecAivazis/survey/v2) library to make the CLI interactive
 
 ## Usage
 
