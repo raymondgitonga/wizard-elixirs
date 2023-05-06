@@ -24,17 +24,17 @@ func TestWizardWorldClient_GetIngredients(t *testing.T) {
 		parsingError bool
 	}{
 		{
-			name:         "successful call to wizard world api",
+			name:         "Success_ApiCall",
 			expectedResp: testResponse,
 			httpsStatus:  http.StatusOK,
 		},
 		{
-			name:        "failed call to wizard world api",
+			name:        "Fail_ServerError",
 			serverError: true,
 			httpsStatus: http.StatusBadRequest,
 		},
 		{
-			name:         "json decoding error when parsing response",
+			name:         "Fail_ServerError",
 			expectedResp: []byte(``),
 			parsingError: true,
 			httpsStatus:  http.StatusOK,
@@ -93,18 +93,18 @@ func TestWizardWorldClient_GetElixirs(t *testing.T) {
 		parsingError bool
 	}{
 		{
-			name:         "successful call to wizard world api",
+			name:         "Success_ApiCall",
 			expectedResp: testResponse,
 			httpsStatus:  http.StatusOK,
 		},
 		{
-			name:         "failed call to wizard world api",
+			name:         "Fail_ServerError",
 			expectedResp: testResponse,
 			serverError:  true,
 			httpsStatus:  http.StatusInternalServerError,
 		},
 		{
-			name:         "json decoding error when parsing response",
+			name:         "Fail_ParsingError",
 			expectedResp: []byte(``),
 			parsingError: true,
 			httpsStatus:  http.StatusOK,
