@@ -7,7 +7,7 @@ import (
 
 type NoIngredientsError struct{}
 
-type Conjure struct {
+type ElixirCreator struct {
 	prompt Prompt
 	client wizardclient.Client
 }
@@ -16,21 +16,21 @@ func (n NoIngredientsError) Error() string {
 	return "you must add at least one ingredient"
 }
 
-func NewConjure(prompt Prompt, client wizardclient.Client) *Conjure {
-	return &Conjure{
+func NewElixirCreator(prompt Prompt, client wizardclient.Client) *ElixirCreator {
+	return &ElixirCreator{
 		prompt: prompt,
 		client: client,
 	}
 }
 
-func (e *Conjure) AskUserToStartMakingElixirs() (bool, error) {
+func (e *ElixirCreator) AskUserToStartMakingElixirs() (bool, error) {
 	var makeElixirs bool
 	prompt := &survey.Confirm{Message: "Welcome to the wizarding world, ready to make elixirs?"}
 	err := e.prompt.AskOne(prompt, &makeElixirs)
 	return makeElixirs, err
 }
 
-func (e *Conjure) AskUserToSelectIngredients() ([]string, error) {
+func (e *ElixirCreator) AskUserToSelectIngredients() ([]string, error) {
 	ingredients, err := e.client.GetIngredients()
 	if err != nil {
 		return nil, err
@@ -54,7 +54,7 @@ func (e *Conjure) AskUserToSelectIngredients() ([]string, error) {
 	return chosenIngredients, err
 }
 
-func (e *Conjure) CreateElixirsFromIngredients(chosenIngredients []string) ([]wizardclient.Elixir, error) {
+func (e *ElixirCreator) CreateElixirsFromIngredients(chosenIngredients []string) ([]wizardclient.Elixir, error) {
 	elixirs, err := e.client.GetElixirs(chosenIngredients)
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func (e *Conjure) CreateElixirsFromIngredients(chosenIngredients []string) ([]wi
 	return elixirs, nil
 }
 
-func (e *Conjure) createIngredientOptions(ingredients []wizardclient.Ingredient) []string {
+func (e *ElixirCreator) createIngredientOptions(ingredients []wizardclient.Ingredient) []string {
 	var ingredientOptions []string
 	for i := range ingredients {
 		ingredientOptions = append(ingredientOptions, ingredients[i].Name)

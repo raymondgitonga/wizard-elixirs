@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestConjure_AskUserToStartMakingElixirs(t *testing.T) {
+func TestElixirCreator_AskUserToStartMakingElixirs(t *testing.T) {
 	tests := []struct {
 		name      string
 		prompt    Prompt
@@ -34,9 +34,9 @@ func TestConjure_AskUserToStartMakingElixirs(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			conjure := NewConjure(tt.prompt, &wizardclient.ClientMock{})
+			elixirCreator := NewElixirCreator(tt.prompt, &wizardclient.ClientMock{})
 
-			makeElixirs, err := conjure.AskUserToStartMakingElixirs()
+			makeElixirs, err := elixirCreator.AskUserToStartMakingElixirs()
 
 			if tt.wantError {
 				assert.Error(t, err)
@@ -49,7 +49,7 @@ func TestConjure_AskUserToStartMakingElixirs(t *testing.T) {
 	}
 }
 
-func TestConjure_AskUserToSelectIngredients(t *testing.T) {
+func TestElixirCreator_AskUserToSelectIngredients(t *testing.T) {
 	tests := []struct {
 		name                  string
 		prompt                Prompt
@@ -119,8 +119,8 @@ func TestConjure_AskUserToSelectIngredients(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			conjure := NewConjure(tt.prompt, tt.wizardClient)
-			ingredients, err := conjure.AskUserToSelectIngredients()
+			elixirCreator := NewElixirCreator(tt.prompt, tt.wizardClient)
+			ingredients, err := elixirCreator.AskUserToSelectIngredients()
 
 			if tt.wantPromptError {
 				assert.Error(t, err)
@@ -139,7 +139,7 @@ func TestConjure_AskUserToSelectIngredients(t *testing.T) {
 	}
 }
 
-func TestConjure_MakeElixir(t *testing.T) {
+func TestElixirCreator_MakeElixir(t *testing.T) {
 	tests := []struct {
 		name         string
 		wizardClient wizardclient.Client
@@ -171,8 +171,8 @@ func TestConjure_MakeElixir(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			conjure := NewConjure(&PromptMock{}, tt.wizardClient)
-			elixir, err := conjure.CreateElixirsFromIngredients([]string{"Newt spleens"})
+			elixirCreator := NewElixirCreator(&PromptMock{}, tt.wizardClient)
+			elixir, err := elixirCreator.CreateElixirsFromIngredients([]string{"Newt spleens"})
 
 			if tt.wantError {
 				assert.Error(t, err)

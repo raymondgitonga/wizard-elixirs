@@ -26,10 +26,10 @@ func (r *Root) RunElixirCommand() error {
 		Use:   "elixir",
 		Short: "Command to make elixir",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			err := r.conjureElixirs()
+			err := r.createElixirs()
 			if errors.Is(err, core.NoIngredientsError{}) {
 				fmt.Println("Add at least one ingredient, lets try this again")
-				return r.conjureElixirs()
+				return r.createElixirs()
 			}
 			if err != nil {
 				return fmt.Errorf("error running elixir command: %w", err)
@@ -40,9 +40,9 @@ func (r *Root) RunElixirCommand() error {
 	return command.Execute()
 }
 
-func (r *Root) conjureElixirs() error {
-	conjure := core.NewConjure(r.surveyPrompt, r.wizardClient)
-	makeElixirs, err := conjure.AskUserToStartMakingElixirs()
+func (r *Root) createElixirs() error {
+	elixirCreator := core.NewElixirCreator(r.surveyPrompt, r.wizardClient)
+	makeElixirs, err := elixirCreator.AskUserToStartMakingElixirs()
 	if err != nil {
 		return err
 	}
@@ -51,12 +51,12 @@ func (r *Root) conjureElixirs() error {
 		return nil
 	}
 
-	chosenIngredients, err := conjure.AskUserToSelectIngredients()
+	chosenIngredients, err := elixirCreator.AskUserToSelectIngredients()
 	if err != nil {
 		return err
 	}
 
-	elixirs, err := conjure.CreateElixirsFromIngredients(chosenIngredients)
+	elixirs, err := elixirCreator.CreateElixirsFromIngredients(chosenIngredients)
 	if err != nil {
 		return err
 	}
