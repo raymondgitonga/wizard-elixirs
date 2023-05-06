@@ -1,5 +1,8 @@
 # Wizard-Client
 
+<p style="text-align:center;"> <img src="https://github.com/scraly/gophers/blob/main/harry-gopher.png" alt="gopher" width="200"/></p>
+
+
 Wizard-Client is a CLI app that allows users to create magical elixirs based on the ingredients they have at their disposal. Simply input a list of ingredients, and the app will return the elixirs you can make with those ingredients.
 
 ## Table of Contents
@@ -31,7 +34,7 @@ make elixir
 
 You'll be prompted to confirm if you're ready to make elixirs. After confirmation, choose your ingredients from the list provided. The app will then display the elixirs you can make with your chosen ingredients in JSON format.
 
-![](https://github.com/raymondgitonga/wizard-elixirs/demo.gif)
+![](./demo.gif)
 ## Testing
 To run tests for the project, execute the following command:
 ```bash
