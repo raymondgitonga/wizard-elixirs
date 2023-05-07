@@ -1,4 +1,4 @@
-package core
+package elixircreator
 
 import "github.com/AlecAivazis/survey/v2"
 

@@ -4,17 +4,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/raymondgitonga/wizard-elixirs/internal/core"
+	"github.com/raymondgitonga/wizard-elixirs/internal/elixircreator"
 	"github.com/raymondgitonga/wizard-elixirs/internal/wizardclient"
 	"github.com/spf13/cobra"
 )
 
 type Root struct {
-	surveyPrompt core.Prompt
+	surveyPrompt elixircreator.Prompt
 	wizardClient wizardclient.Client
 }
 
-func NewRoot(surveyPrompt core.Prompt, wizardClient wizardclient.Client) *Root {
+func NewRoot(surveyPrompt elixircreator.Prompt, wizardClient wizardclient.Client) *Root {
 	return &Root{
 		surveyPrompt: surveyPrompt,
 		wizardClient: wizardClient,
@@ -27,7 +27,7 @@ func (r *Root) RunElixirCommand() error {
 		Short: "Command to make elixir",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			err := r.createElixirs()
-			if errors.Is(err, core.NoIngredientsError{}) {
+			if errors.Is(err, elixircreator.NoIngredientsError{}) {
 				fmt.Println("Add at least one ingredient, lets try this again")
 				return r.createElixirs()
 			}
@@ -41,7 +41,8 @@ func (r *Root) RunElixirCommand() error {
 }
 
 func (r *Root) createElixirs() error {
-	elixirCreator := core.NewElixirCreator(r.surveyPrompt, r.wizardClient)
+	elixirCreator := elixircreator.NewElixirCreator(r.surveyPrompt, r.wizardClient)
+
 	makeElixirs, err := elixirCreator.AskUserToStartMakingElixirs()
 	if err != nil {
 		return err

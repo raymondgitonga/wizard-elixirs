@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/raymondgitonga/wizard-elixirs/cmd"
-	"github.com/raymondgitonga/wizard-elixirs/internal/core"
+	"github.com/raymondgitonga/wizard-elixirs/internal/elixircreator"
 	"github.com/raymondgitonga/wizard-elixirs/internal/wizardclient"
 	"log"
 	"net/http"
@@ -11,7 +11,7 @@ import (
 const WizardWorldURL = "https://wizard-world-api.herokuapp.com"
 
 func main() {
-	serverPrompt := core.NewSurveyPrompt()
+	serverPrompt := elixircreator.NewSurveyPrompt()
 	wizardClient, err := wizardclient.NewWizardClient(WizardWorldURL, &http.Client{})
 	if err != nil {
 		log.Fatal(err)
