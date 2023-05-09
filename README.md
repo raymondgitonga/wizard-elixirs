@@ -18,7 +18,7 @@ Wizard-Client is a CLI app that allows users to create magical elixirs based on 
 |-- go.mod
 |-- go.sum
 |-- internal
-|   |-- core
+|   |-- elixircreator
 |   |   |-- elixircreator.go
 |   |   |-- elixircreator_test.go
 |   |   |-- prompt.go
@@ -30,8 +30,8 @@ Wizard-Client is a CLI app that allows users to create magical elixirs based on 
 |-- main.go
 ```
 
-- The main functionality lies in the core package. `elixircreator.go` is responsible for coordinating user interactions  and the creation of elixirs using the provided ingredients. `prompt.go` is an abstraction over the prompt survey library, that collects users responses.
-- The wizardclient package holds the HTTP client for fetching ingredient and elixir data
+- The main functionality lies in the `elixircreator` package. `elixircreator.go` is responsible for coordinating user interactions  and the creation of elixirs using the provided ingredients. `prompt.go` is an abstraction over the prompt survey library, that collects users responses.
+- The `wizardclient `package holds the HTTP client for fetching ingredient and elixir data
 - Both packages make use of interfaces to make the code more flexible, allowing for easier testing and the ability to swap out implementations when needed.
 - The design pattern used in the provided code is the Dependency Injection pattern. Specific dependencies are injected into structs that need them rather than being hard-coded.
 
